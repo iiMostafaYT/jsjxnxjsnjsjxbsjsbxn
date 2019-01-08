@@ -104,5 +104,179 @@ var prefix = "." // برفكس حقك هني
     message.channel.send(id)
 }       });
 
+
+client.on('message', dark => {
+    
+    if (dark.content === "NightBot.") {
+        setInterval(function(){
+        dark.edit('**N**')    
+        dark.edit('**Ni**')    
+        dark.edit('**Nig**')
+        dark.edit('**Nigh**')
+        dark.edit('**Night**')
+        dark.edit('**NightB**')
+        dark.edit('**NightBo*')
+        dark.edit('**NightBot**')
+        dark.edit('**NightBot.**')
+        }, 1000)
+    }
+    
+})
+
+client.on("message", message => {
+    var prefix = "."
+    if (!message.content.startsWith(prefix)) return;
+      let command = message.content.split(" ")[0];
+      command = command.slice(prefix.length);
+        if(command === "mcskin") {
+                const args = message.content.split(" ").slice(1).join(" ")
+        if (!args) return message.channel.send("**اكتب اسم السكن الي تبيه**");
+        const image = new Discord.Attachment(`https://minotar.net/armor/body/${args}`, "skin.png");
+    message.channel.send(image)
+        }
+    });
+
+client.on("message", (message) => {
+    if(message.content.startsWith(prefix+"gmail")) {
+        message.channel.send(JSON.stringify({
+            email: Math.random().toString(36).slice(4).trim()+"@gmail.com",
+            password: Math.random().toString(36).slice(4).trim()
+        }))
+    }
+})
+
+
+client.on('message', message => {
+    var prefix = "."// بيرفكس البوت حقك
+if (message.content.startsWith(prefix + "uptime")) {//Narox
+   let uptime = client.uptime;
+//Narox
+   let days = 0;//Narox
+   let hours = 0;
+   let minutes = 0;
+   let seconds = 0;//Narox
+   let notCompleted = true;
+
+   while (notCompleted) {
+//Narox
+       if (uptime >= 8.64e+7) {
+//Narox
+           days++;
+           uptime -= 8.64e+7;
+
+       } else if (uptime >= 3.6e+6) {
+//Narox
+           hours++;
+           uptime -= 3.6e+6;
+
+       } else if (uptime >= 60000) {
+
+           minutes++;
+           uptime -= 60000;
+
+       } else if (uptime >= 1000) {
+           seconds++;
+           uptime -= 1000;
+
+       }//Narox//Narox
+
+       if (uptime < 1000)  notCompleted = false;
+
+   }
+//Narox
+   message.channel.send("**" + `${days} days, ${hours} hrs, ${minutes} min , ${seconds} sec` + "**");
+//Narox
+
+}
+});
+
+
+
+var Discord = require("discord.js");
+var client = new Discord.Client();
+var prefix = ".";
  
+var word;
+ 
+client.on("message", async function(msg) {
+    if (msg.author.bot) return undefined;
+    if (msg.channel.type !== "text") return undefined;
+    else {
+        var args = msg.content.toLowerCase().split(" ");
+        if (args[0].slice(prefix.length) === "clear") {//The code created by @L#7574
+            if (isNaN(args[1]) && args[1]) return msg.channel.send("Use numbers man ,_,");
+            if (!msg.guild.member(client.user)) return msg.channel.send('Missing manage messages permission!');
+            if (!msg.member.hasPermission("MANAGE_MESSAGES")) return msg.channel.send("You're missing manage messages permission!");
+            else {//The code created by @L#7574
+                if (args[1] || !args[1]) {
+                    await msg.channel.fetchMessages().then(async msgs => {
+                        var word;
+                        if (msgs.size-1 >= 1) word = "messages";
+                        if (msgs.size-1 <= 1) word = "message";
+                        if(msgs.size-1 <= 0) return msg.channel.send(`There are no messages to clear!`);
+                        if (!args[1]) {
+                            if (msgs.size-1 < 100) {
+                                await msg.channel.bulkDelete(msgs.size);
+                                await msg.channel.send(`I've deleted ${msgs.size-=1} ${word}..`);
+                            }
+                            else if (msgs.size-1 >= 100) {
+                                await msg.delete();
+                                await msg.channel.bulkDelete(msgs.size);
+                                await msg.channel.send(`I've deleted ${msgs.size-=1} ${word}..`);
+                            }
+                        }
+                        else if (args[1] && args[1] < 100) {
+                            if (msgs.size-1 < 100 && args[1] < 100 && args[1] > 0) {
+                                await msg.channel.bulkDelete(parseInt(args[1])+1);
+                                await msg.channel.send(`I've deleted ${parseInt(args[1]).toFixed()} ${word}..`);
+                            }
+                            else if (msgs.size-1 >= 100 && args[1] == 100) {
+                                await msg.delete();
+                                await msg.channel.bulkDelete(msgs.size);
+                                await msg.channel.send(`I've deleted ${msgs.size-=1} ${word}`);
+                            }
+                            else {
+                                return msg.channel.send(`Invalid numbers..`);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    }
+});//The code created by @L#7574
+
+     
+client.on('guildMemberAdd', member => {
+  
+  const channel = member.guild.channels.find(ch => ch.name === 'welcome');
+ 
+  if (!channel) return;
+
+  channel.send(`Welcome to the server, ${member}`);
+});
+
+
+
+client.on('message', message => {
+  if (message.content.startsWith(prefix + 'linkbot')) {
+    var mentionned = message.mentions.users.first();
+    var mrx;
+      if(mentionned){
+          var mrx = mentionned; } else {
+          var mrx = message.author;
+      }
+      if(!mentionned.bot) return message.reply("الشخص الذي منشنته ليس بوت");
+      if(!mentionned) return message.reply("منشن البوت");
+      let alpha = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setTitle(`Link Bot`)
+      .setURL(`https://discordapp.com/oauth2/authorize?client_id=${mrx.id}&scope=bot&permissions=8`)
+      .setThumbnail(mrx.avatarURL)
+      .setFooter(`- Requested By: ${message.author.tag}`)
+      message.channel.sendEmbed(alpha);
+  }
+});
+
+
  client.login(process.env.BOT_TOKEN);
