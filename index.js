@@ -192,9 +192,6 @@ if (message.content.startsWith(prefix + "uptime")) {//Narox
 
 
 
-var Discord = require("discord.js");
-var client = new Discord.Client();
-var prefix = ".";
  
 var word;
  
